@@ -5,7 +5,7 @@
     <div class="flex flex-col justify-around w-full">
       <div>
         <p class="text-sm uppercase opacity-50">{{ product.brand }}</p>
-        <a class="vertical-truncate" :href="product.href">
+        <a class="vertical-truncate" :href="product.href" target="_blank">
           {{ product.name }}
         </a>
       </div>

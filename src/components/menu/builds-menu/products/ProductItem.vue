@@ -25,7 +25,11 @@
 
     <div class="flex flex-col w-full h-full space-y-1">
       <div>
-        <a :href="product.href" class="text-sm leading-tight vertical-truncate">
+        <a
+          :href="product.href"
+          class="text-sm leading-tight vertical-truncate"
+          target="_blank"
+        >
           {{ product.name }}
         </a>
       </div>
