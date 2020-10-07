@@ -28,32 +28,68 @@ const getters = {
     let query = rootGetters["search/query"];
     let _retailers = _cloneDeep(retailers);
 
-    _retailers.forEach((retailer) => {
-      if (filters.strict)
-        retailer.products = retailer.products.filter((product) =>
-          query
-            .toLowerCase()
-            .split(/\s/g)
-            .every((one) => {
-              let fullname = product.brand
-                ? `${product.brand} ${product.name}`
-                : product.name;
-              return fullname.toLowerCase().includes(one);
-            })
-        );
+    // _retailers.forEach((retailer) => {
+    //   if (filters.strict)
+    //     retailer.products = retailer.products.filter((product) =>
+    //       query
+    //         .toLowerCase()
+    //         .split(/\s/g)
+    //         .every((one) => {
+    //           let fullname = product.brand
+    //             ? `${product.brand} ${product.name}`
+    //             : product.name;
+    //           return fullname.toLowerCase().includes(one);
+    //         })
+    //     );
+    //
+    //   // if (filters.sort === "high")
+    //   //   retailer.products = retailer.products.sort((f, s) =>
+    //   //     f.price < s.price ? 1 : -1
+    //   //   );
+    //   //
+    //   // if (filters.sort === "low")
+    //   //   retailer.products = retailer.products.sort((f, s) =>
+    //   //     f.price > s.price ? 1 : -1
+    //   //   );
+    //
+    //   retailer.products = _orderBy(
+    //     retailer.products,
+    //     "price",
+    //     filters.sort === "high" ? "desc" : "asc"
+    //   );
+    // });
 
-      if (filters.sort === "high")
-        retailer.products = retailer.products.sort((f, s) =>
-          f.price < s.price ? 1 : -1
-        );
+    let order =
+      (filters.sort === "high" && "desc") ||
+      (filters.sort === "low" && "asc") ||
+      undefined;
 
-      if (filters.sort === "low")
-        retailer.products = retailer.products.sort((f, s) =>
-          f.price > s.price ? 1 : -1
-        );
-    });
+    return _orderBy(
+      _retailers,
+      [
+        (retailer) => {
+          if (filters.strict)
+            retailer.products = retailer.products.filter((product) =>
+              query
+                .toLowerCase()
+                .split(/\s/g)
+                .every((one) => {
+                  let fullname = product.brand
+                    ? `${product.brand} ${product.name}`
+                    : product.name;
+                  return fullname.toLowerCase().includes(one);
+                })
+            );
 
-    return _orderBy(_retailers, ["name"]);
+          if (order) {
+            retailer.products = _orderBy(retailer.products, "price", order);
+            return retailer.products[0].price;
+          }
+        },
+        "name",
+      ],
+      order
+    );
   },
   productsCount: ({ retailers }, { retailers: retailersFiltered }) => {
     return (
