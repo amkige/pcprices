@@ -6,32 +6,81 @@ export default (imageSrc) =>
       const canvas = document.createElement("canvas");
       const ctx = canvas.getContext("2d");
 
-      canvas.width = image.width;
-      canvas.height = image.height;
+      const w = image.width;
+      const h = image.height;
+
+      canvas.width = w;
+      canvas.height = h;
 
       ctx.drawImage(image, 0, 0);
 
       const imageData = ctx.getImageData(0, 0, image.width, image.height);
-      const pix = imageData.data;
-      const newColor = {
-        r: 0,
-        g: 0,
-        b: 0,
-        a: 0,
-      };
+      const pixel = imageData.data;
 
-      for (let i = 0, n = pix.length; i < n; i += 4) {
-        const r = pix[i];
-        const g = pix[i + 1];
-        const b = pix[i + 2];
+      const r = 0;
+      const g = 1;
+      const b = 2;
+      const a = 3;
 
-        let max = 200;
+      const stack = [];
+      stack.push(0);
+      stack.push(w * 4 - 4);
+      stack.push(h * w * 4 - 4);
+      stack.push(h * w * 4 - w * 4);
 
-        if (r >= max && g >= max && b >= max) {
-          pix[i] = newColor.r;
-          pix[i + 1] = newColor.g;
-          pix[i + 2] = newColor.b;
-          pix[i + 3] = newColor.a;
+      let col = 0,
+        row = 0,
+        gr = false,
+        gl = false,
+        gu = false,
+        gd = false;
+
+      while (stack.length > 0) {
+        const ind = stack.pop();
+        const threshold = 240;
+        if (pixel[ind + a] === 255) {
+          if (
+            pixel[ind + r] >= threshold &&
+            pixel[ind + g] >= threshold &&
+            pixel[ind + b] >= threshold
+          ) {
+            pixel[ind + a] =
+              (765 - pixel[ind + r] - pixel[ind + g] - pixel[ind + b]) / 3;
+
+            col = ((ind / 4) % w) + 1;
+            row = Math.floor(ind / 4 / w) + 1;
+            gr = col < w && pixel[ind + 4 + a] === 255;
+            gl = col > 1 && pixel[ind - 4 + a] === 255;
+            gu = row > 1 && pixel[ind - w * 4 + a] === 255;
+            gd = row < h && pixel[ind + w * 4 + a] === 255;
+
+            if (gu && gl && pixel[ind - 4 - w * 4 + a] === 255) {
+              stack.push(ind - 4 - w * 4);
+            }
+            if (gu) {
+              stack.push(ind - w * 4);
+            }
+            if (gu && gr && pixel[ind + 4 - w * 4 + a] === 255) {
+              stack.push(ind + 4 - w * 4);
+            }
+            if (gl) {
+              stack.push(ind - 4);
+            }
+            if (gr) {
+              stack.push(ind + 4);
+            }
+            if (gd && gl && pixel[ind + w * 4 - 4 + a] === 255) {
+              stack.push(ind + w * 4 - 4);
+            }
+            if (gd) {
+              stack.push(ind + w * 4);
+            }
+            if (gd && gr && pixel[ind + w * 4 + 4 + a] === 255) {
+              stack.push(ind + w * 4 + 4);
+            }
+          } else {
+            pixel[ind + a] = 150;
+          }
         }
       }
 
