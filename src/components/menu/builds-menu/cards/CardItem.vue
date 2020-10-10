@@ -22,7 +22,7 @@
 
 <script>
 import AnchorIcon from "vue-feather-icons/icons/AnchorIcon";
-import CaseImage from "@/assets/images/case.svg";
+import CaseImage from "@/assets/images/case.svg?inline";
 import { CURRENCY } from "@/const";
 import stringifyPrice from "@/utils/stringifyPrice";
 

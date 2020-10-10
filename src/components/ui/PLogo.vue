@@ -5,8 +5,8 @@
 
 <script>
 import { mapGetters } from "vuex";
-import DefaultLogo from "@/assets/logo/default.svg";
-import MonoLogo from "@/assets/logo/mono.svg";
+import DefaultLogo from "@/assets/logo/default.svg?inline";
+import MonoLogo from "@/assets/logo/mono.svg?inline";
 
 export default {
   name: "PLogo",
