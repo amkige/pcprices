@@ -1,39 +1,74 @@
 import { CanvasTable } from "canvas-table";
 import { CURRENCY } from "@/const";
+import stringifyPrice from "@/utils/stringifyPrice";
 
 export default async function (products, buildTotalPrice) {
   const columns = [
-    { title: "QTY" },
+    { title: "Retailer", options: { textAlign: "left" } },
+    { title: "QTY", options: { textAlign: "center" } },
     { title: "Name" },
-    { title: `Price (${CURRENCY})` },
-    { title: `Total Price (${CURRENCY})` },
-    { title: "Retailer", options: { textAlign: "right" } },
+    { title: "Price" },
+    { title: "Total", options: { textAlign: "right" } },
   ];
 
   const data = products.map((product) => [
-    product.qty.toString(),
-    product.name,
-    product.price.toString(),
-    product.totalPrice.toString(),
     product.retailerName,
+    product.qty,
+    [product.name, { image: product.thumb, width: 42, height: 42 }],
+    `${CURRENCY} ${product.price}`,
+    `${CURRENCY} ${product.totalPrice}`,
   ]);
 
   const emptyRow = ["", "", "", "", ""];
-  data.push(emptyRow, ["TOTAL", "", "", "", `${CURRENCY} ${buildTotalPrice}`]);
+  data.push(emptyRow, [
+    [
+      "",
+      {
+        image: require("@/assets/logo/default.svg"),
+        scale: 0.3,
+      },
+    ],
+    "",
+    "",
+    "",
+    [
+      `${CURRENCY} ${stringifyPrice(buildTotalPrice)}`,
+      { fontSize: 16, fontWeight: "500" },
+    ],
+  ]);
 
   const canvas = document.createElement("canvas");
-  canvas.width = 800;
-  canvas.height = 80 + data.length * 25;
+  canvas.width = 1080;
+  canvas.height = 90 + data.length * 50;
 
   const config = {
     columns,
     data,
     options: {
+      header: {
+        fontWeight: "normal",
+        fontFamily: "Inter Var",
+        color: "#808080",
+      },
+      cell: {
+        fontWeight: "normal",
+        fontFamily: "Inter Var",
+        color: "#000",
+        lineHeight: 1.5,
+        padding: 15,
+      },
+      devicePixelRatio: 3,
       fit: true,
       fader: {},
-      title: {
-        text: location.origin,
-        lineHeight: 1.5,
+      borders: {
+        column: undefined,
+        header: undefined,
+      },
+      padding: {
+        top: 35,
+        bottom: 35,
+        right: 30,
+        left: 30,
       },
     },
   };

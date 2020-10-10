@@ -7,8 +7,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "canvas": "^2.6.1",
-    "canvas-table": "0.0.6",
+    "canvas-table": "github:SamyzKhalil/canvas-table",
     "core-js": "^3.6.5",
     "firebase-firestore-lite": "^1.0.0-RC2.1",
     "js-sha1": "^0.6.0",
