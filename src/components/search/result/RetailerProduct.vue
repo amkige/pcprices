@@ -11,8 +11,11 @@
       </div>
       <div class="flex items-center justify-between mt-3">
         <span class="font-medium sm:text-lg">
-          <span class="text-base">{{ CURRENCY }}</span>
-          {{ product.price }}
+          <span v-if="product.price > 0">
+            <span class="text-base">{{ CURRENCY }}</span>
+            {{ product.price }}
+          </span>
+          <span v-else>unavailable</span>
         </span>
 
         <div @click="toggleProduct">
