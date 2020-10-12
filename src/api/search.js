@@ -4,10 +4,14 @@ const stores = [
   ["elnekhely"],
   ["highendstore"],
   ["elbadrgroup"],
-  ["uptodate", true],
   ["computrade"],
   ["rameg"],
+  ["alfrensia"],
+  ["deltacomputer"],
+  ["titanseg", true],
+  ["uptodate", true],
   ["sigmacomputer", true],
+  ["arabhardware", true],
 ];
 const API = `https://pcp.#store#.workers.dev`;
 let abortController = null;
