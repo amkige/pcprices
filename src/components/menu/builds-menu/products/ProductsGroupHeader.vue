@@ -19,6 +19,11 @@
       <div slot="items">
         <PDropdownItem v-if="imageSrc" class="cursor-default">
           <a target="_blank" :href="imageSrc" class="w-full">
+            <ExternalLinkIcon
+              size="1.4x"
+              stroke-width="1.5"
+              class="box-content absolute p-1 mr-2 text-white rounded-full pointer-events-none bg-gradient-to-br from-brand1 to-brand2"
+            />
             <img
               :src="imageSrc"
               class="object-contain w-48 h-24 mx-auto rounded-md"
@@ -80,6 +85,7 @@ import ClipboardIcon from "vue-feather-icons/icons/ClipboardIcon";
 import LinkIcon from "vue-feather-icons/icons/Link2Icon";
 import EditIcon from "vue-feather-icons/icons/Edit2Icon";
 import TrashIcon from "vue-feather-icons/icons/Trash2Icon";
+import ExternalLinkIcon from "vue-feather-icons/icons/ExternalLinkIcon";
 
 export default {
   name: "ProductsGroupHeader",
@@ -93,6 +99,7 @@ export default {
     LinkIcon,
     EditIcon,
     TrashIcon,
+    ExternalLinkIcon,
   },
   data() {
     return {
