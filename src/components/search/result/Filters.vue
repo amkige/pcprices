@@ -30,27 +30,21 @@ export default {
   name: "Filters",
   components: { PCheckbox },
   computed: {
-    ...mapGetters("search/result", ["filters", "productsCount"]),
+    ...mapGetters("search/result", ["productsCount"]),
     strict: {
       get() {
-        return this.filters.strict;
+        return this.$store.getters["search/result/strict"];
       },
       set(value) {
-        this.$store.commit("search/result/setFilters", {
-          sort: this.sort,
-          strict: value,
-        });
+        this.$store.commit("search/result/setStrict", value);
       },
     },
     sort: {
       get() {
-        return this.filters.sort;
+        return this.$store.getters["search/result/sort"];
       },
       set(value) {
-        this.$store.commit("search/result/setFilters", {
-          sort: value,
-          strict: this.strict,
-        });
+        this.$store.commit("search/result/setSort", value);
       },
     },
   },

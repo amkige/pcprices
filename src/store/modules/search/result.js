@@ -5,7 +5,7 @@ import _sumBy from "lodash/sumBy";
 const state = {
   retailers: [],
   filters: {
-    strict: true,
+    strict: false,
     sort: "default",
   },
 };
@@ -17,8 +17,11 @@ const mutations = {
   resetResults(state) {
     state.retailers = [];
   },
-  setFilters(state, value) {
-    state.filters = value;
+  setStrict(state, value) {
+    state.filters.strict = value;
+  },
+  setSort(state, value) {
+    state.filters.sort = value;
   },
 };
 
@@ -28,68 +31,42 @@ const getters = {
     let query = rootGetters["search/query"];
     let _retailers = _cloneDeep(retailers);
 
-    // _retailers.forEach((retailer) => {
-    //   if (filters.strict)
-    //     retailer.products = retailer.products.filter((product) =>
-    //       query
-    //         .toLowerCase()
-    //         .split(/\s/g)
-    //         .every((one) => {
-    //           let fullname = product.brand
-    //             ? `${product.brand} ${product.name}`
-    //             : product.name;
-    //           return fullname.toLowerCase().includes(one);
-    //         })
-    //     );
-    //
-    //   // if (filters.sort === "high")
-    //   //   retailer.products = retailer.products.sort((f, s) =>
-    //   //     f.price < s.price ? 1 : -1
-    //   //   );
-    //   //
-    //   // if (filters.sort === "low")
-    //   //   retailer.products = retailer.products.sort((f, s) =>
-    //   //     f.price > s.price ? 1 : -1
-    //   //   );
-    //
-    //   retailer.products = _orderBy(
-    //     retailer.products,
-    //     "price",
-    //     filters.sort === "high" ? "desc" : "asc"
-    //   );
-    // });
-
     let order =
       (filters.sort === "high" && "desc") ||
       (filters.sort === "low" && "asc") ||
-      undefined;
+      null;
 
-    return _orderBy(
-      _retailers,
-      [
-        (retailer) => {
-          if (filters.strict)
-            retailer.products = retailer.products.filter((product) =>
-              query
-                .toLowerCase()
-                .split(/\s/g)
-                .every((one) => {
-                  let fullname = product.brand
-                    ? `${product.brand} ${product.name}`
-                    : product.name;
-                  return fullname.toLowerCase().includes(one);
-                })
-            );
+    if (filters.strict)
+      _retailers.forEach((retailer) => {
+        retailer.products = retailer.products.filter((product) =>
+          query
+            .toLowerCase()
+            .split(/\s/g)
+            .every((one) => {
+              let fullname = product.brand
+                ? `${product.brand} ${product.name}`
+                : product.name;
+              return fullname.toLowerCase().includes(one);
+            })
+        );
+      });
 
-          if (order) {
-            retailer.products = _orderBy(retailer.products, "price", order);
-            return retailer.products[0].price;
-          }
-        },
-        "name",
-      ],
-      order
-    );
+    if (order)
+      _retailers = _orderBy(
+        _retailers,
+        [
+          (retailer) => {
+            if (order) {
+              retailer.products = _orderBy(retailer.products, "price", order);
+              return retailer.products[0].price;
+            }
+          },
+          "name",
+        ],
+        order
+      );
+
+    return _retailers;
   },
   productsCount: ({ retailers }, { retailers: retailersFiltered }) => {
     return (
@@ -98,7 +75,8 @@ const getters = {
       _sumBy(retailers, "products.length")
     );
   },
-  filters: ({ filters }) => filters,
+  strict: ({ filters }) => filters.strict,
+  sort: ({ filters }) => filters.sort,
 };
 
 export default {

@@ -20,7 +20,7 @@
 
     <PThumbnail
       :src="product.thumb"
-      class="flex-shrink-0 object-cover w-16 h-16"
+      class="flex-shrink-0 object-cover w-16 h-16 flex"
     />
 
     <div class="flex flex-col w-full h-full space-y-1">

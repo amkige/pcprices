@@ -14,7 +14,7 @@ export default async function (products, buildTotalPrice) {
   const data = products.map((product) => [
     product.retailerName,
     product.qty,
-    [product.name, { image: product.thumb, width: 42, height: 42 }],
+    [product.name, { image: product.thumb, width: 42 }],
     `${CURRENCY} ${product.price}`,
     `${CURRENCY} ${product.totalPrice}`,
   ]);

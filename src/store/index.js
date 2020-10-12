@@ -14,5 +14,9 @@ export default new Vuex.Store({
     builds,
     ui,
   },
-  plugins: [createPersistedState({ paths: ["ui.theme", "builds"] })],
+  plugins: [
+    createPersistedState({
+      paths: ["ui.theme", "builds", "search.result.filters"],
+    }),
+  ],
 });

@@ -3,10 +3,6 @@ import searchStores from "@/api/search";
 const state = {
   query: "",
   category: "",
-  filters: {
-    strict: true,
-    sort: "default",
-  },
 };
 
 const mutations = {
@@ -15,9 +11,6 @@ const mutations = {
   },
   setCategory(state, value) {
     state.category = state.category !== value ? value : "";
-  },
-  setFilters(state, value) {
-    state.filters = value;
   },
 };
 
@@ -53,7 +46,6 @@ const actions = {
 const getters = {
   query: ({ query }) => query,
   category: ({ category }) => category,
-  filters: ({ filters }) => filters,
 };
 
 import result from "./result";
