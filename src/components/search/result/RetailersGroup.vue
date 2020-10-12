@@ -26,18 +26,7 @@
         :retailer="retailer"
         class="mb-16"
       />
-      <footer
-        key="footer"
-        class="flex justify-center w-full mb-8 text-sm text-gray-600"
-      >
-        <a
-          class="flex items-center"
-          href="https://github.com/samyzkhalil/pcprices"
-          target="_blank"
-        >
-          <GithubIcon size="1.5x" class="mr-1" stroke-width="1.5" /> GitHub
-        </a>
-      </footer>
+      <PFooter class="mb-12" v-show="retailers.length" key="footer" />
     </transition-group>
   </transition>
 </template>
@@ -46,11 +35,12 @@
 import { mapGetters } from "vuex";
 import Retailer from "./RetailerItem";
 import Filters from "./Filters";
-import GithubIcon from "vue-feather-icons/icons/GithubIcon";
+
+import PFooter from "@/components/PFooter";
 
 export default {
   name: "RetailersGroup",
-  components: { Retailer, Filters, GithubIcon },
+  components: { Retailer, Filters, PFooter },
   data() {
     return {
       show: false,
