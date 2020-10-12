@@ -11,6 +11,11 @@ module.exports = {
       .end()
       .use("vue-svg-loader")
       .loader("vue-svg-loader")
+      .options({
+        svgo: {
+          plugins: [{ prefixIds: true }],
+        },
+      })
       .end()
       .end()
       .oneOf("external")
