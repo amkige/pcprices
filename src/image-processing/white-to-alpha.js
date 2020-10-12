@@ -2,7 +2,9 @@ export default (imageSrc) =>
   new Promise((resolve, reject) => {
     const image = new Image();
 
-    image.addEventListener("load", () => {
+    image.addEventListener("load", async () => {
+      // https://github.com/PCaponetti/image-background-removal
+
       const canvas = document.createElement("canvas");
       const ctx = canvas.getContext("2d");
 
@@ -23,10 +25,16 @@ export default (imageSrc) =>
       const a = 3;
 
       const stack = [];
+      stack.push(h * w - w);
+      stack.push(h * w * 3 - w);
+
       stack.push(0);
       stack.push(w * 4 - 4);
       stack.push(h * w * 4 - 4);
       stack.push(h * w * 4 - w * 4);
+
+      stack.push(h * w * 2 - 4);
+      stack.push(h * w * 2 - w * 4);
 
       let col = 0,
         row = 0,
@@ -37,7 +45,7 @@ export default (imageSrc) =>
 
       while (stack.length > 0) {
         const ind = stack.pop();
-        const threshold = 240;
+        const threshold = 180;
         if (pixel[ind + a] === 255) {
           if (
             pixel[ind + r] >= threshold &&
