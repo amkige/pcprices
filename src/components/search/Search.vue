@@ -8,7 +8,6 @@
           :placeholder="placeholder"
           :value="query"
           spellcheck="false"
-          required
           @input="query = $event.target.value"
           @keyup.enter="onSearch"
         />
