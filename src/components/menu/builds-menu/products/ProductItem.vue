@@ -30,7 +30,7 @@
           class="text-sm leading-tight vertical-truncate"
           target="_blank"
         >
-          {{ product.name }}
+          {{ product.name.full || product.name }}
         </a>
       </div>
 

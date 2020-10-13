@@ -4,9 +4,9 @@
 
     <div class="flex flex-col justify-around w-full">
       <div>
-        <p class="text-sm uppercase opacity-50">{{ product.brand }}</p>
+        <p class="text-sm uppercase opacity-50">{{ product.name.brand }}</p>
         <a class="vertical-truncate" :href="product.href" target="_blank">
-          {{ product.name }}
+          {{ product.name.brand ? product.name.part : product.name.full }}
         </a>
       </div>
       <div class="flex items-center justify-between mt-3">
