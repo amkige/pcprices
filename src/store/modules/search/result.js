@@ -42,12 +42,7 @@ const getters = {
           query
             .toLowerCase()
             .split(/\s/g)
-            .every((one) => {
-              let fullname = product.brand
-                ? `${product.brand} ${product.name}`
-                : product.name;
-              return fullname.toLowerCase().includes(one);
-            })
+            .every((one) => product.name.full.toLowerCase().includes(one))
         );
       });
 
@@ -61,7 +56,7 @@ const getters = {
               return retailer.products[0].price;
             }
           },
-          "name",
+          "name.full",
         ],
         order
       );
