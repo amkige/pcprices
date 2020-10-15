@@ -46,19 +46,18 @@ const getters = {
         );
       });
 
-    if (order)
-      _retailers = _orderBy(
-        _retailers,
-        (retailer) => {
-          if (order) {
-            retailer.products = _orderBy(retailer.products, "price", order);
-            return retailer.products[0].price;
-          } else {
-            return retailer.name;
-          }
-        },
-        order
-      );
+    _retailers = _orderBy(
+      _retailers,
+      (retailer) => {
+        if (order) {
+          retailer.products = _orderBy(retailer.products, "price", order);
+          return retailer.products[0].price;
+        } else {
+          return retailer.name;
+        }
+      },
+      order
+    );
 
     return _retailers;
   },
