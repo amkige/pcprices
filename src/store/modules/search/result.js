@@ -49,7 +49,7 @@ const getters = {
     _retailers = _orderBy(
       _retailers,
       (retailer) => {
-        if (order) {
+        if (order && retailer.products.length) {
           retailer.products = _orderBy(retailer.products, "price", order);
           return retailer.products[0].price;
         } else {

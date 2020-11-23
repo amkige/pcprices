@@ -21,7 +21,7 @@ const actions = {
       state.query,
       state.category,
       (result) => {
-        if (result && result.products.length)
+        if (result && result.products && result.products.length)
           commit("result/addResult", result);
       },
       () => {
