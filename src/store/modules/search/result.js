@@ -35,8 +35,6 @@ const getters = {
       (filters.sort === "high" && "desc") ||
       (filters.sort === "low" && "asc") ||
       null;
-    
-    _retailers = _retailers.filter(retailer => retailer.products.length)
 
     if (filters.strict)
       _retailers.forEach((retailer) => {
