@@ -12,6 +12,7 @@ const stores = [
   ["uptodate", true],
   ["sigmacomputer", true],
   ["arabhardware", true],
+  ["elnourtech", true],
 ];
 const API = `https://pcp.#store#.workers.dev`;
 
