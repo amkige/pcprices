@@ -20,6 +20,10 @@ const actions = {
   search({ commit, state, getters }) {
     if (!state.query && !state.category) return;
 
+    if (state.query) window.umami.trackEvent(state.query, "Search");
+    if (state.category) window.umami.trackEvent(state.category, "Category");
+    window.umami.trackEvent(state.category ? "True" : "False", "Used category");
+
     if (abortController) abortController.abort();
     abortController = new AbortController();
     let isAborted = false;

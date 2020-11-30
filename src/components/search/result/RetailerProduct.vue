@@ -5,7 +5,12 @@
     <div class="flex flex-col justify-around w-full">
       <div>
         <p class="text-sm uppercase opacity-50">{{ product.name.brand }}</p>
-        <a class="vertical-truncate" :href="product.href" target="_blank">
+        <a
+          class="vertical-truncate"
+          :href="product.href"
+          target="_blank"
+          @click="trackReferrer"
+        >
           {{
             (product.name.brand ? product.name.part : product.name.full) ||
             product.name
@@ -99,6 +104,9 @@ export default {
     },
     toggleProduct() {
       this.inCurrentBuild ? this.removeFromBuild() : this.addToBuild();
+    },
+    trackReferrer() {
+      window.umami.trackView("/", this.product.href);
     },
   },
 };
