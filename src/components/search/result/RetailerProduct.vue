@@ -9,7 +9,7 @@
           class="vertical-truncate"
           :href="product.href"
           target="_blank"
-          @click="trackReferrer"
+          @click="trackOutbound"
         >
           {{
             (product.name.brand ? product.name.part : product.name.full) ||
@@ -105,8 +105,9 @@ export default {
     toggleProduct() {
       this.inCurrentBuild ? this.removeFromBuild() : this.addToBuild();
     },
-    trackReferrer() {
-      window.umami.trackView("/", this.product.href);
+    trackOutbound() {
+      window.sa_event(this.product.retailerName);
+      window.sa_event(this.product.href);
     },
   },
 };
