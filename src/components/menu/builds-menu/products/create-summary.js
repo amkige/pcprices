@@ -19,8 +19,7 @@ export default async function (products, buildTotalPrice) {
     `${CURRENCY} ${product.totalPrice}`,
   ]);
 
-  const emptyRow = ["", "", "", "", ""];
-  data.push(emptyRow, [
+  data.push([
     [
       "",
       {
@@ -39,7 +38,7 @@ export default async function (products, buildTotalPrice) {
 
   const canvas = document.createElement("canvas");
   canvas.width = 1080;
-  canvas.height = 90 + data.length * 50;
+  canvas.height = 15 + 35 + data.length * 50;
 
   const config = {
     columns,
@@ -57,7 +56,7 @@ export default async function (products, buildTotalPrice) {
         lineHeight: 1.5,
         padding: 15,
       },
-      devicePixelRatio: 3,
+      devicePixelRatio: 1.4,
       fit: true,
       fader: {},
       borders: {
@@ -65,10 +64,10 @@ export default async function (products, buildTotalPrice) {
         header: undefined,
       },
       padding: {
-        top: 35,
-        bottom: 35,
-        right: 30,
-        left: 30,
+        top: 10,
+        bottom: 10,
+        right: 5,
+        left: 5,
       },
     },
   };
