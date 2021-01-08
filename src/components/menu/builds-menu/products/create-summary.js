@@ -38,7 +38,7 @@ export default async function (products, buildTotalPrice) {
 
   const canvas = document.createElement("canvas");
   canvas.width = 1080;
-  canvas.height = 15 + 35 + data.length * 50;
+  canvas.height = 48 + data.length * 48.2;
 
   const config = {
     columns,
@@ -64,7 +64,7 @@ export default async function (products, buildTotalPrice) {
         header: undefined,
       },
       padding: {
-        top: 10,
+        top: 0,
         bottom: 10,
         right: 5,
         left: 5,
