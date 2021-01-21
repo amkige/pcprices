@@ -28,7 +28,7 @@ export default function searchStores(
   let first = true;
   let finishedRequests = 0;
   for (let [store, noCategories] of stores) {
-    if (category && noCategories) {
+    if (!query && category && noCategories) {
       finishedRequests++;
       continue;
     }
