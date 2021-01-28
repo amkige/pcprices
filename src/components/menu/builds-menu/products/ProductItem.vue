@@ -40,7 +40,7 @@
           <span>{{ product.price }}</span>
         </span>
         <img
-          style="width: 60px; height: 26px"
+          style="width: 60px; height: 22px"
           class="object-contain text-xs dark:invert"
           :src="product.retailerLogo"
           :alt="product.retailerName"

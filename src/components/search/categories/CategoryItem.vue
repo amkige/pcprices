@@ -55,18 +55,18 @@ export default {
       return this.name === this.category;
     },
     imageSrc() {
-      const filename = this.name + ".png";
+      const filename = this.name;
 
       if (this.hasVariants) {
-        const light = (new Image().src = require(`@/assets/categories/light/${filename}`));
-        const dark = (new Image().src = require(`@/assets/categories/dark/${filename}`));
+        const light = `https://res.cloudinary.com/dfgjeebfv/image/upload/c_fit,f_auto,h_64,q_auto,w_96/pcprices/cat_parts/${filename}-dark`;
+        const dark = `https://res.cloudinary.com/dfgjeebfv/image/upload/c_fit,f_auto,h_64,q_auto,w_96/pcprices/cat_parts/${filename}-light`;
 
         return (this.isDark && !this.isActive) ||
           (!this.isDark && this.isActive)
           ? dark
           : light;
       } else {
-        return (new Image().src = require(`@/assets/categories/neutral/${filename}`));
+        return `https://res.cloudinary.com/dfgjeebfv/image/upload/c_fit,f_auto,h_64,q_auto,w_96/pcprices/cat_parts/${filename}`;
       }
     },
   },
