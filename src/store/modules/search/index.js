@@ -20,9 +20,11 @@ const actions = {
   search({ commit, state, getters }) {
     if (!state.query && !state.category) return;
 
-    if (state.query && !state.category) window.sa_event("search_event");
-    if (!state.query && state.category) window.sa_event("cat_event");
-    if (state.query && state.category) window.sa_event("search_cat_event");
+    if (window.sa_event) {
+      if (state.query && !state.category) window.sa_event("search_event");
+      if (!state.query && state.category) window.sa_event("cat_event");
+      if (state.query && state.category) window.sa_event("search_cat_event");
+    }
 
     if (abortController) abortController.abort();
     abortController = new AbortController();
