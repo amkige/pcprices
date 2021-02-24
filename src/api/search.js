@@ -13,6 +13,7 @@ const stores = [
   ["sigmacomputer", true],
   ["arabhardware", true],
   ["elnourtech", true],
+  ["tagme3ty", true],
 ];
 const API = `https://pcp.#store#.workers.dev`;
 
