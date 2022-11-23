@@ -39,12 +39,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-@import "src/styles/const";
-img {
-  #{$dark-selector} & {
-    filter: brightness(1.2);
-  }
-}
-</style>
