@@ -36,7 +36,7 @@ export default {
       return;
     }
 
-    this.imgSrc = CACHE[this.src] = await whiteToAlpha(this.src);
+    this.imgSrc = CACHE[this.src] = this.src;
   },
 };
 </script>
