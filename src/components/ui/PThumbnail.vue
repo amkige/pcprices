@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import whiteToAlpha from "@/image-processing/white-to-alpha";
 import PSkeleton from "./PSkeleton";
 
 const CACHE = {};
